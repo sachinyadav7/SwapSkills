@@ -1,4 +1,4 @@
-Team members k nam Or email dalde readme mae
+Team members Name And Email
 Aashi :aashikohad05@gmail.com 
 Aditi:aditibhattad2310@gmail.com
 pranay:pranaykalamkar22@gmail.com
