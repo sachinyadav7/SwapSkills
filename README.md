@@ -45,3 +45,5 @@ python app.py
 ## 📬 Email Confirmation
 - After registering, the app sends a confirmation email.
 - The user must click the link to verify the email before login (can be made optional).
+video Link:
+https://drive.google.com/file/d/18LURN8sYYesSJZr2atARv4ymDTHT7_33/view?usp=sharing
