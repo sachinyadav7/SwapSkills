@@ -1,3 +1,8 @@
+Team members k nam Or email dalde readme mae
+Aashi :aashikohad05@gmail.com 
+Aditi:aditibhattad2310@gmail.com
+pranay:pranaykalamkar22@gmail.com
+sachin: sachinryadav1805@gmail.com
 # SwapSkills - Skill Swap Platform (Enhanced)
 
 ## 🚀 Features:
