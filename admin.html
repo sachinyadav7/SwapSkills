@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - SkillSwap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #2c3e50;
+      --card: #f1f3f5;
+      --accent: #c0392b;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1f1f1f;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: var(--card);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .admin-section {
+      background-color: var(--card);
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    }
+
+    .admin-section h3 {
+      margin-top: 0;
+    }
+
+    .admin-section button {
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .admin-section button:hover {
+      background-color: #96281b;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Admin Panel</strong></div>
+    <nav>
+      <a href="{{ url_for('home')}}">Home</a>
+      <a href="{{ url_for('profile') }}">profile</a>
+      <a href="{{ url_for('login') }}">logout</a>
+      <a href="{{url_for('admin')}}">Dashboard</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <div class="container">
+    <h2>Admin Controls</h2>
+
+    <div class="admin-section">
+      <h3>Moderate Skills</h3>
+      <p>Review and reject inappropriate or spammy skill listings.</p>
+      <button onclick="alert('Simulating moderation')">Review Skills</button>
+    </div>
+
+    <div class="admin-section">
+      <h3>Ban Users</h3>
+      <p>Identify and ban users violating platform policies.</p>
+      <button onclick="alert('Simulating ban')">Ban User</button>
+    </div>
+
+    <div class="admin-section">
+      <h3>Manage Swaps</h3>
+      <p>Monitor pending, accepted, and cancelled swaps.</p>
+      <button onclick="alert('Simulating swap monitoring')">View Swaps</button>
+    </div>
+
+    <div class="admin-section">
+      <h3>Send Platform Messages</h3>
+      <p>Send updates, alerts, or announcements to all users.</p>
+      <button onclick="alert('Simulating message broadcast')">Send Message</button>
+    </div>
+
+    <div class="admin-section">
+      <h3>Download Reports</h3>
+      <p>Get data on user activity, feedback, and swap statistics.</p>
+      <button onclick="alert('Simulating report download')">Download Reports</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    }
+  </script>
+</body>
+</html>

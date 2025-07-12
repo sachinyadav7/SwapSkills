@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSwap Home</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #2c3e50;
+      --card: #f1f3f5;
+      --accent: #2980b9;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background-color: var(--card);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px;
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 40px;
+    }
+
+    .hero button {
+      background-color: var(--accent);
+      border: none;
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .hero button:hover {
+      background-color: #1c639c;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>SkillSwap</strong></div>
+    <nav>
+      <a href="{{ url_for('home') }}">Home</a>
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a href="{{ url_for('swap_requests') }}">Requests</a>
+      <a href="{{ url_for('login') }}">Logout</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <div class="hero">
+    <h1>Welcome to SkillSwap</h1>
+    <p>Exchange your skills with others. Learn something new. Teach what you know.</p>
+    <button onclick="window.location.href='{{ url_for('register') }}'">Get Started</button>
+    <button onclick="adminLogin()">Admin Login</button>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    }
+
+    function adminLogin() {
+      const email = prompt("Enter admin email:");
+      if (email && email.trim().toLowerCase() === "aashikohad05@gmail.com") {
+        window.location.href = "{{ url_for('admin') }}";
+      } else {
+        alert("Access Denied: Invalid admin email.");
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard - SkillSwap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #2c3e50;
+      --card: #f1f3f5;
+      --accent: #2980b9;
+      --hover-accent: #1c639c;
+      --button-bg: #126e82;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+    .search-bar input,
+    .search-bar select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+    }
+    .search-bar button {
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--card);
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+    .details {
+      flex: 1;
+    }
+    .details h3 {
+      margin: 0 0 0.4rem 0;
+    }
+    .details p {
+      margin: 2px 0;
+      font-size: 0.95rem;
+    }
+    .chip {
+      display: inline-block;
+      background: #ccc;
+      border-radius: 16px;
+      padding: 4px 10px;
+      margin-right: 5px;
+      font-size: 0.85rem;
+    }
+    .right-box {
+      text-align: right;
+    }
+    .right-box .btn {
+      background: var(--button-bg);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 14px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+    .pagination span {
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Skill Swap Platform</strong></div>
+    <nav>
+      <a href="#">Logout</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <select>
+        <option>Availability</option>
+        <option>Weekends</option>
+        <option>Evenings</option>
+      </select>
+      <input type="text" placeholder="Search...">
+      <button>Search</button>
+    </div>
+
+    <div class="card">
+      <img src="profile-icon.png" alt="Marc Demo">
+      <div class="details">
+        <h3>Marc Demo</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 3.9/5</p>
+      </div>
+      <div class="right-box">
+        <button class="btn">Request</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="profile-icon.png" alt="Michell">
+      <div class="details">
+        <h3>Michell</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 2.5/5</p>
+      </div>
+      <div class="right-box">
+        <button class="btn">Request</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="profile-icon.png" alt="Joe Wills">
+      <div class="details">
+        <h3>Joe Wills</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 4.0/5</p>
+      </div>
+      <div class="right-box">
+        <button class="btn">Request</button>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <span>&lt;</span>
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+      <span>6</span>
+      <span>7</span>
+      <span>&gt;</span>
+    </div>
+  </div>
+</body>
+</html>

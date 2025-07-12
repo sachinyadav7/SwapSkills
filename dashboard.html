@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard - SkillSwap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #2c3e50;
+      --card: #f1f3f5;
+      --accent: #2980b9;
+      --hover-accent: #1c639c;
+      --button-bg: #126e82;
+    }
+    [data-theme="dark"] {
+      --bg: #121212;
+      --text: #f1f1f1;
+      --card: #1e1e1e;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: all 0.3s ease;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--card);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      background: var(--button-bg);
+      padding: 8px 14px;
+      border-radius: 6px;
+      color: #fff;
+      transition: background-color 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-accent);
+    }
+
+    .toggle-switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      background-color: #ccc;
+      border-radius: 24px;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: 0.3s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: var(--accent);
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .search-bar {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .search-bar input,
+    .search-bar select {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    .search-bar button {
+      background: var(--accent);
+      color: white;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* PRO CARD DESIGN */
+    .card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(12px);
+      padding: 1.5rem;
+      border-radius: 16px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    [data-theme="dark"] .card {
+      background: rgba(30, 30, 30, 0.6);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .card img {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      margin-right: 1.5rem;
+    }
+
+    .details {
+      flex: 1;
+    }
+
+    .details h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.2rem;
+    }
+
+    .details p {
+      margin: 4px 0;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .chip {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      border-radius: 20px;
+      padding: 4px 12px;
+      margin: 4px 5px 4px 0;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: background 0.3s ease;
+    }
+
+    .right-box {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.6rem;
+    }
+
+    .right-box .btn {
+      background: var(--button-bg);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      text-decoration: none;
+      text-align: center;
+    }
+
+    .right-box .btn:hover {
+      background-color: var(--hover-accent);
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 2rem;
+    }
+
+    .pagination span {
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .right-box {
+        width: 100%;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>Skill Swap Platform</strong></div>
+    <nav>
+      <a href="{{ url_for('home')}}">Home</a>
+      <a href="{{ url_for('profile') }}">profile</a>
+      <a href="{{ url_for('swap_requests') }}">requests</a>
+      <a href="{{ url_for('login') }}">logout</a>
+      <a href="{{url_for('swap_requests')}}">Notifications</a>
+      <label class="toggle-switch">
+        <input type="checkbox" id="themeToggle">
+        <span class="slider"></span>
+      </label>
+    </nav>
+  </header>
+
+  <div class="container">
+    <div class="search-bar">
+      <select>
+        <option>Availability</option>
+        <option>Weekends</option>
+        <option>Evenings</option>
+      </select>
+      <input type="text" placeholder="Search...">
+      <button>Search</button>
+    </div>
+
+    <!-- CARD 1 -->
+    <div class="card">
+      <img src="profile-icon.png" alt="Marc Demo">
+      <div class="details">
+        <h3>Marc Demo</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 3.9/5</p>
+      </div>
+      <div class="right-box">
+        <a href="{{url_for('send_request')}}" class="btn">request</a>
+      </div>
+    </div>
+
+    <!-- CARD 2 -->
+    <div class="card">
+      <img src="profile-icon.png" alt="Michell">
+      <div class="details">
+        <h3>Michell</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 2.5/5</p>
+      </div>
+      <div class="right-box">
+        <a href="{{url_for('send_request')}}"class="btn">request</a>
+      </div>
+    </div>
+
+    <!-- CARD 3 -->
+    <div class="card">
+      <img src="profile-icon.png" alt="Joe Wills">
+      <div class="details">
+        <h3>Joe Wills</h3>
+        <p>Skills Offered: <span class="chip">JavaScript</span> <span class="chip">Python</span></p>
+        <p>Skills Wanted: <span class="chip">Photoshop</span> <span class="chip">Graphic Design</span></p>
+        <p>Rating: 4.0/5</p>
+      </div>
+      <div class="right-box">
+        <a href="{{url_for('send_request')}}" class="btn">request</a>
+      </div>
+    </div>
+
+    <div class="pagination">
+      <span>&lt;</span>
+      <span>1</span>
+      <span>2</span>
+      <span>3</span>
+      <span>4</span>
+      <span>5</span>
+      <span>&gt;</span>
+    </div>
+  </div>
+
+  <script>
+    const toggle = document.getElementById('themeToggle');
+    const currentTheme = localStorage.getItem('theme');
+
+    if (currentTheme === 'dark') {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      toggle.checked = true;
+    }
+
+    toggle.addEventListener('change', function () {
+      if (this.checked) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  </script>
+</body>
+</html>

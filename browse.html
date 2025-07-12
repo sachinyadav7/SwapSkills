@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Browse Skills</h2>
+  <form method="GET">
+    <input type="text" name="query" placeholder="Search by skill..." value="{{ query }}">
+    <button type="submit">Search</button>
+  </form>
+  <ul class="mt-3">
+    {% for row in results %}
+      <li>
+        <strong>{{ row[6] }}</strong> offers <b>{{ row[2] }}</b> and wants <b>{{ row[3] }}</b>
+        – <a href="{{ url_for('send_swap_request', receiver_id=row[1], skill=row[2]) }}">Request Swap</a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

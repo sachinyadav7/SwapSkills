@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile - SkillSwap</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #2c3e50;
+      --card: #f4faff;
+      --accent: #3498db;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--card);
+      padding: 20px 40px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      cursor: pointer;
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+
+    .profile-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      margin: 40px;
+    }
+
+    .form {
+      flex: 2;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    input, select {
+      width: 90%;
+      padding: 8px;
+      background-color: transparent;
+      border: none;
+      border-bottom: 2px solid var(--text);
+      color: var(--text);
+      font-size: 1em;
+    }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 5px;
+    }
+
+    .chip {
+      background-color: var(--card);
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .chip button {
+      background: none;
+      border: none;
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .profile-pic {
+      flex: 1;
+      text-align: center;
+    }
+
+    .profile-pic-circle {
+      border: 2px solid var(--text);
+      border-radius: 50%;
+      width: 150px;
+      height: 150px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .profile-pic-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .edit-photo {
+      margin-top: 10px;
+    }
+
+    .edit-photo span {
+      margin: 0 5px;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .edit-photo .remove {
+      color: red;
+    }
+
+    .actions {
+      margin: 40px;
+      display: flex;
+      gap: 20px;
+    }
+
+    .actions button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .save { background: #3498db; color: white; }
+    .discard { background: #e74c3c; color: white; }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>SkillSwap</strong></div>
+    <nav>
+      <a href="{{ url_for('home')}}">Home</a>
+      <a href="{{ url_for('profile') }}">Profile</a>
+      <a href="{{ url_for('swap_requests') }}">Requests</a>
+      <a href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <!-- FORM -->
+  <form action="{{ url_for('profile') }}" method="POST" enctype="multipart/form-data">
+    <div class="profile-container">
+      <div class="form">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" name="location" placeholder="Enter your location">
+        </div>
+
+        <div class="form-group">
+          <label for="skill_offered">Skill Offered</label>
+          <input type="text" id="skill_offered" name="skill_offered" placeholder="e.g., Graphic Design" required>
+        </div>
+
+        <div class="form-group">
+          <label for="skill_wanted">Skill Wanted</label>
+          <input type="text" id="skill_wanted" name="skill_wanted" placeholder="e.g., Python" required>
+        </div>
+
+        <div class="form-group">
+          <label for="availability">Availability</label>
+          <input type="text" id="availability" name="availability" value="Weekends">
+        </div>
+
+        <div class="form-group">
+          <label for="is_public">Profile Visibility</label>
+          <select id="is_public" name="is_public">
+            <option value="1">Public</option>
+            <option value="0">Private</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Profile Picture Upload -->
+      <div class="profile-pic">
+        <div class="profile-pic-circle" id="profilePhotoContainer">
+          {% if profile_pic %}
+          <img id="profilePhoto" src="{{ url_for('static', filename='images/' ~ profile_pic) }}" alt="Profile Photo">
+          {% else %}
+          <img id="profilePhoto" src="" alt="Profile Photo" style="display: none;">
+          {% endif %}
+        </div>
+        <div class="edit-photo">
+          <span onclick="document.getElementById('uploadPhoto').click()">Add/Edit</span>
+          <span class="remove" onclick="removePhoto()">Remove</span>
+        </div>
+        <input type="file" id="uploadPhoto" name="profile_pic" accept="image/*" style="display: none;">
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" class="save">Save</button>
+      <button type="reset" class="discard">Discard</button>
+    </div>
+  </form>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    }
+
+    function removePhoto() {
+      const photo = document.getElementById("profilePhoto");
+      photo.src = "";
+      photo.style.display = "none";
+      document.getElementById("uploadPhoto").value = "";
+    }
+
+    document.getElementById("uploadPhoto").addEventListener("change", function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const photo = document.getElementById("profilePhoto");
+          photo.src = e.target.result;
+          photo.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  </script>
+</body>
+</html>

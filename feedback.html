@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+  <h2>Leave Feedback</h2>
+  <form method="POST">
+    <label>Rating:</label>
+    <select name="rating">
+      <option value="5">⭐⭐⭐⭐⭐</option>
+      <option value="4">⭐⭐⭐⭐</option>
+      <option value="3">⭐⭐⭐</option>
+      <option value="2">⭐⭐</option>
+      <option value="1">⭐</option>
+    </select>
+    <br>
+    <textarea name="comment" placeholder="Your comments..." required></textarea><br>
+    <button type="submit">Submit Feedback</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Swap Requests - SkillSwap</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0d;
+      --text: #f5f5f5;
+      --card: #1a1a1a;
+      --accent: #00bcd4;
+      --danger: #e74c3c;
+      --success: #2ecc71;
+      --neutral: #888;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--card);
+      padding: 20px 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+    }
+
+    nav a {
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .theme-toggle {
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .request-card {
+      background-color: var(--card);
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      position: relative;
+    }
+
+    .request-card h3 {
+      margin-top: 0;
+    }
+
+    .request-actions {
+      margin-top: 10px;
+    }
+
+    .request-actions button {
+      margin-right: 10px;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .accept {
+      background-color: var(--success);
+      color: white;
+    }
+
+    .reject {
+      background-color: var(--danger);
+      color: white;
+    }
+
+    .delete {
+      background-color: var(--neutral);
+      color: white;
+    }
+
+    .status {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div><strong>SkillSwap</strong></div>
+    <nav>
+      <a href="{{ url_for('home')}}">Home</a>
+      <a href="{{ url_for('profile') }}">profile</a>
+      <a href="{{ url_for('swap_requests') }}">requests</a>
+      <a href="{{ url_for('login') }}">logout</a>
+     </nav>
+    <button class="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+  </header>
+
+  <div class="container">
+    <div class="request-card" id="req1">
+      <h3>Swap Request from <strong>Alex</strong></h3>
+      <p><strong>Wants:</strong> Python Tutoring</p>
+      <p><strong>Offers:</strong> Graphic Design</p>
+      <div class="request-actions">
+        <button class="accept" onclick="updateStatus('req1', 'Accepted')">Accept</button>
+        <button class="reject" onclick="updateStatus('req1', 'Rejected')">Reject</button>
+        <button class="delete" onclick="deleteRequest('req1')">Delete</button>
+      </div>
+      <div class="status" id="status-req1"></div>
+    </div>
+
+    <div class="request-card" id="req2">
+      <h3>Swap Request from <strong>Riya</strong></h3>
+      <p><strong>Wants:</strong> Video Editing</p>
+      <p><strong>Offers:</strong> Excel Basics</p>
+      <div class="request-actions">
+        <button class="accept" onclick="updateStatus('req2', 'Accepted')">Accept</button>
+        <button class="reject" onclick="updateStatus('req2', 'Rejected')">Reject</button>
+        <button class="delete" onclick="deleteRequest('req2')">Delete</button>
+      </div>
+      <div class="status" id="status-req2"></div>
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute("data-theme");
+      document.documentElement.setAttribute("data-theme", current === "dark" ? "light" : "dark");
+    }
+
+    function updateStatus(id, status) {
+      const statusElement = document.getElementById('status-' + id);
+      statusElement.textContent = status;
+      statusElement.style.color = status === 'Accepted' ? 'var(--success)' : 'var(--danger)';
+    }
+
+    function deleteRequest(id) {
+      const card = document.getElementById(id);
+      card.style.display = 'none';
+    }
+  </script>
+</body>
+</html>
